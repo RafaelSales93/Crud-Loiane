@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rafael.crud_spring.model.Curso;
@@ -20,7 +21,7 @@ public class CursosController {
 
 
     @GetMapping
-    public List<Curso> list(){
+    public @ResponseBody List<Curso> list(){
         return cusroRepository.findAll();
     }
 
