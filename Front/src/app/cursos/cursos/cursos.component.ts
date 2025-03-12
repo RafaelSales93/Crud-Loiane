@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 
 import { Curso } from '../modelos/curso';
 import { CursosService } from './../services/cursos.service';
-import { catchError } from 'rxjs/operators';
-import { error } from '@angular/compiler/src/util';
-import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-cursos',
@@ -19,7 +19,9 @@ export class CursosComponent implements OnInit {
 
   constructor(
     private cursosService: CursosService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public router: Router, 
+    public route: ActivatedRoute
   ) {
     // this.cursos = [];
     
@@ -40,4 +42,10 @@ export class CursosComponent implements OnInit {
     });
   }
   ngOnInit(): void {}
+
+  onAdd() {
+   this.router.navigate(['new'], {relativeTo: this.route});
+   
+    
+  }
 }
