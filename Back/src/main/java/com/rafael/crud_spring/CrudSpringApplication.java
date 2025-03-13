@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.rafael.crud_spring.model.Curso;
-import com.rafael.crud_spring.repository.CusroRepository;
+import com.rafael.crud_spring.repository.CursoRepository;
 
 @SpringBootApplication
 public class CrudSpringApplication {
@@ -16,15 +16,15 @@ public class CrudSpringApplication {
 	}
 
 	@Bean
-	CommandLineRunner initDatabase(CusroRepository cusroRepository) {
+	CommandLineRunner initDatabase(CursoRepository cursoRepository) {
 		return args -> {
-			cusroRepository.deleteAll();
+			cursoRepository.deleteAll();
 
 			Curso c = new Curso();
 			c.setNome("Angular com Spring");
 			c.setCategoria("front-end");
 
-			cusroRepository.save(c);
+			cursoRepository.save(c);
 		};
 
 	}
