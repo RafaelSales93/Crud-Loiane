@@ -2,14 +2,15 @@ package com.rafael.crud_spring.controller;
 
 import java.util.List;
 
+import com.rafael.crud_spring.repository.CusroRepository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rafael.crud_spring.model.Curso;
-import com.rafael.crud_spring.repository.CusroRepository;
 
 import lombok.AllArgsConstructor;
 
@@ -23,10 +24,12 @@ public class CursosController {
 
 
     @GetMapping
-    public @ResponseBody List<Curso> list(){
+    public List<Curso> list(){
         return cusroRepository.findAll();
     }
 
-
+    @PostMapping
+public void create(){
+}
 
 }
