@@ -7,6 +7,7 @@ import { CursosComponent } from './cursos/cursos.component';
 import { SharedModule } from '../shared/shared.module';
 import { CursoFormComponent } from './curso-form/curso-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CursosListComponent } from './cursos-list/cursos-list.component';
 
 
 
@@ -15,7 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     CursosComponent,
-    CursoFormComponent
+    CursoFormComponent,
+    CursosListComponent
   ],
   imports: [
     CommonModule,
