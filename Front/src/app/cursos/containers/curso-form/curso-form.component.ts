@@ -1,8 +1,11 @@
+
 import { Component, OnInit } from '@angular/core';
 import { NonNullableFormBuilder } from '@angular/forms';
 import { Location } from '@angular/common';
 import { CursosService } from '../../services/cursos.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Curso } from '../../model/curso';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-curso-form',
@@ -13,6 +16,7 @@ export class CursoFormComponent implements OnInit {
 
   
   form = this.formBuilder.group({
+    _id: [''],
     nome: [''],
     categoria: ['']
   });
@@ -21,11 +25,19 @@ export class CursoFormComponent implements OnInit {
     private formBuilder: NonNullableFormBuilder,
     private service: CursosService,
     private _snackBar: MatSnackBar,
-    private location: Location ) {
+    private location: Location,
+    private route : ActivatedRoute
+   ) {
     // this.form 
   }
 
   ngOnInit(): void {
+    const curso : Curso = this.route.snapshot.data['curso']
+    this.form.setValue({
+      _id: curso._id,
+      nome: curso.nome,
+      categoria: curso.categoria
+    });
 
   }
 
