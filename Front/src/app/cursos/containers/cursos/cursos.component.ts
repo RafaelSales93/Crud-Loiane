@@ -1,3 +1,4 @@
+import { Curso } from '../../model/curso';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -5,7 +6,6 @@ import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 
-import { Curso } from '../../modelos/curso';
 import { CursosService } from '../../services/cursos.service';
 
 @Component({
@@ -45,7 +45,9 @@ export class CursosComponent implements OnInit {
 
   onAdd() {
    this.router.navigate(['new'], {relativeTo: this.route});
-   
-    
+  }
+
+  onEdit(curso: Curso){
+    this.router.navigate(['edit', curso._id], {relativeTo: this.route});
   }
 }

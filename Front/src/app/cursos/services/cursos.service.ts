@@ -1,4 +1,4 @@
-import { Curso } from './../modelos/curso';
+import { Curso } from '../model/curso';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { delay } from 'rxjs/operators';
@@ -18,6 +18,11 @@ export class CursosService {
        // delay(5000)
       );
   }
+
+  loadById(id: string){
+    return this.httpClient.get<Curso>(`${this.API}/${id}`);
+  }
+
   save(record: Partial <Curso>) {
   return this.httpClient.post<Curso>(this.API, record);
   
