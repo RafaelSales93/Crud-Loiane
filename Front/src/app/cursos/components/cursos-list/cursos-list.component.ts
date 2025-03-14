@@ -1,0 +1,25 @@
+import { CursosComponent } from '../../containers/cursos/cursos.component';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Curso } from '../../modelos/curso';
+import { ActivatedRoute, Router } from '@angular/router';
+
+@Component({
+  selector: 'app-cursos-list',
+  templateUrl: './cursos-list.component.html',
+  styleUrls: ['./cursos-list.component.scss'],
+})
+export class CursosListComponent implements OnInit {
+
+  @Input() cursos: Curso[] = [];
+  @Output() add = new EventEmitter(false);
+
+  readonly displayedColumns = ['nome', 'categoria', 'actions'];
+
+  constructor() {}
+
+  ngOnInit(): void {}
+
+  onAdd() {
+    this.add.emit(true);
+  }
+}

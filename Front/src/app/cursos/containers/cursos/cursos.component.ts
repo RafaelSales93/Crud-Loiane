@@ -5,8 +5,8 @@ import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 
-import { Curso } from '../modelos/curso';
-import { CursosService } from './../services/cursos.service';
+import { Curso } from '../../modelos/curso';
+import { CursosService } from '../../services/cursos.service';
 
 @Component({
   selector: 'app-cursos',
