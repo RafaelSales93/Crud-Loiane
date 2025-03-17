@@ -13,14 +13,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CursoFormComponent implements OnInit {
   form = this.formBuilder.group({
+
     _id: [''],
 
-    nome: [
-      '',
-      [Validators.required, Validators.minLength(5), Validators.maxLength(100)],
-    ],
+    nome: ['',[Validators.required, Validators.minLength(5), Validators.maxLength(100)],],
 
     categoria: ['', [Validators.required]],
+    
   });
 
   constructor(
