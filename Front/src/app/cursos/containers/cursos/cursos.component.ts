@@ -7,6 +7,7 @@ import { catchError } from 'rxjs/operators';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 
 import { CursosService } from '../../services/cursos.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-cursos',
@@ -14,40 +15,57 @@ import { CursosService } from '../../services/cursos.service';
   styleUrls: ['./cursos.component.scss'],
 })
 export class CursosComponent implements OnInit {
-  cursos$: Observable<Curso[]>;
- 
+  cursos$: Observable<Curso[]> | null = null;
 
   constructor(
     private cursosService: CursosService,
     public dialog: MatDialog,
-    public router: Router, 
-    public route: ActivatedRoute
+    public router: Router,
+    public route: ActivatedRoute,
+    private _snackBar: MatSnackBar
   ) {
     // this.cursos = [];
-    
-    
-    
-    this.cursos$ = this.cursosService.list().pipe(
+
+    this.refresh();
+  }
+
+  refresh(){
+    this.cursos$ = this.cursosService.list()
+    .pipe(
       catchError((error) => {
         this.onError('Erro ao Carregar Cursos');
-
-        return of([]);
+        return of([])
       })
     );
   }
 
   onError(errorMsg: string) {
     this.dialog.open(ErrorDialogComponent, {
-      data: errorMsg
+      data: errorMsg,
     });
   }
   ngOnInit(): void {}
 
   onAdd() {
-   this.router.navigate(['new'], {relativeTo: this.route});
+    this.router.navigate(['new'], { relativeTo: this.route });
   }
 
-  onEdit(curso: Curso){
-    this.router.navigate(['edit', curso._id], {relativeTo: this.route});
+  onEdit(curso: Curso) {
+    this.router.navigate(['edit', curso._id], { relativeTo: this.route });
+  }
+
+  onRemove(curso: Curso) {
+    this.cursosService.remove(curso._id).subscribe(
+      () => {
+        this.refresh();
+        this._snackBar.open('Curso removido com sucesso!', 'X', {
+          duration: 5000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+        });
+      },
+      () => { this.onError('Erro ao tentar remover curso.');
+      }
+    );
   }
 }

@@ -25,7 +25,7 @@
         </button>
 
         <button mat-icon-button color="accent" aria-label="Remover Curso">
-          <mat-icon>delete</mat-icon>
+          <mat-icon (click)="onDelete(curso)">delete</mat-icon>
         </button>
       </mat-cell>
     </ng-container>

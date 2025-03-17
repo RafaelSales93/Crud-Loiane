@@ -64,7 +64,6 @@ public ResponseEntity<Curso> update(@PathVariable Long id,
 
     @DeleteMapping("/{id}")
 public ResponseEntity<Void> delete(@PathVariable Long id){
-    cursoRepository.deleteById(id);
     return cursoRepository.findById(id)
             .map(record -> {
                cursoRepository.deleteById(id);

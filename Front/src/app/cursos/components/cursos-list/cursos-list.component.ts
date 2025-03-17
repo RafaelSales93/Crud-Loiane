@@ -9,10 +9,10 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./cursos-list.component.scss'],
 })
 export class CursosListComponent implements OnInit {
-
   @Input() cursos: Curso[] = [];
   @Output() add = new EventEmitter(false);
   @Output() edit = new EventEmitter(false);
+  @Output() remove = new EventEmitter(false);
 
   readonly displayedColumns = ['nome', 'categoria', 'actions'];
 
@@ -24,7 +24,11 @@ export class CursosListComponent implements OnInit {
     this.add.emit(true);
   }
 
-  onEdit(curso: Curso){
+  onEdit(curso: Curso) {
     this.edit.emit(curso);
+  }
+
+  onDelete(curso: Curso) {
+    this.remove.emit(curso);
   }
 }
