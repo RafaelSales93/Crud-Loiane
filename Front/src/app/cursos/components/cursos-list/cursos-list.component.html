@@ -13,19 +13,19 @@
     </ng-container>
 
     <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef class="action-column-header">
-        <button mat-mini-fab color="primary" aria-label="Adicionar um Curso">
-          <mat-icon (click)="onAdd()">add</mat-icon>
+      <mat-header-cell *matHeaderCellDef class="action-column">
+        <button mat-mini-fab color="primary" aria-label="Adicionar um Curso" (click)="onAdd()" class="action-column-header">
+          <mat-icon >add</mat-icon>
         </button>
       </mat-header-cell>
 
       <mat-cell *matCellDef="let curso" class="action-column">
-        <button mat-icon-button color="primary" aria-label="Editar Curso">
-          <mat-icon (click)="onEdit(curso)">edit</mat-icon>
+        <button mat-icon-button color="primary" aria-label="Editar Curso" (click)="onEdit(curso)">
+          <mat-icon >edit</mat-icon>
         </button>
 
-        <button mat-icon-button color="warn" aria-label="Remover Curso">
-          <mat-icon (click)="onDelete(curso)">delete</mat-icon>
+        <button mat-icon-button color="warn" aria-label="Remover Curso" (click)="onDelete(curso)">
+          <mat-icon >delete</mat-icon>
         </button>
       </mat-cell>
     </ng-container>
