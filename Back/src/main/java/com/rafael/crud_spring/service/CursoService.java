@@ -3,6 +3,7 @@ package com.rafael.crud_spring.service;
 
 import com.rafael.crud_spring.dto.CursoDTO;
 import com.rafael.crud_spring.dto.mapper.CursoMapper;
+import com.rafael.crud_spring.enums.Categoria;
 import com.rafael.crud_spring.exception.RegistroNaoEncontrado;
 import com.rafael.crud_spring.repository.CursoRepository;
 
@@ -49,7 +50,7 @@ public class CursoService {
         return cursoRepository.findById(id)
     .map(record -> {
         record.setNome(curso.getNome());
-        record.setCategoria(curso.getCategoria());
+        record.setCategoria(Categoria.FRONT_END);
         return cursoMapper.toDTO(cursoRepository.save(record));
     }).orElseThrow(() -> new RegistroNaoEncontrado(id));
 

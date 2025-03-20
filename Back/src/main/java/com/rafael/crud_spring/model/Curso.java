@@ -5,8 +5,14 @@ import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.rafael.crud_spring.enums.Categoria;
+import com.rafael.crud_spring.enums.converters.CategoriaConverter;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -35,10 +41,9 @@ public class Curso {
     private String nome;
 
     @NotNull
-    @Length(max = 10)
-    @Pattern(regexp = "Back-End|Front-End")
-    @Column(length = 10, nullable = false)
-    private String categoria;
+    @Column(nullable = false)
+    @Convert(converter = CategoriaConverter.class)
+    private Categoria categoria;
 
     @NotNull
     @Length(max = 10)
