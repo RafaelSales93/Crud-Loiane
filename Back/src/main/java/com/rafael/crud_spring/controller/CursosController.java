@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.rafael.crud_spring.model.Curso;
+
+import com.rafael.crud_spring.dto.CursoDTO;
 import com.rafael.crud_spring.service.CursoService;
 
 @Validated
@@ -33,25 +33,25 @@ public class CursosController {
     }
 
     @GetMapping
-    public @ResponseBody List<Curso> list() {
+    public List<CursoDTO> list() {
         return cursoService.list();
     }
 
     @GetMapping("/{id}")
-    public Curso findById(@PathVariable @NotNull @Positive Long id) {
+    public CursoDTO findById(@PathVariable @NotNull @Positive Long id) {
         return cursoService.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Curso create(@RequestBody @Valid Curso curso) {
+    public CursoDTO create(@RequestBody @Valid CursoDTO curso) {
 
         return cursoService.create(curso);
     }
 
     @PutMapping("/{id}")
-    public Curso update(@PathVariable @NotNull @Positive Long id,
-            @RequestBody @Valid Curso curso) {
+    public CursoDTO update(@PathVariable @NotNull @Positive Long id,
+            @RequestBody @Valid @NotNull CursoDTO curso) {
         return cursoService.update(id, curso);
     }
 

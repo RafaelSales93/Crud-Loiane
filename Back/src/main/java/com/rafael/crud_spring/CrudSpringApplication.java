@@ -10,10 +10,9 @@ import com.rafael.crud_spring.repository.CursoRepository;
 
 @SpringBootApplication
 public class CrudSpringApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(CrudSpringApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CrudSpringApplication.class, args);
+    }
 
 	@Bean
 	CommandLineRunner initDatabase(CursoRepository cursoRepository) {
