@@ -1,9 +1,12 @@
 package com.rafael.crud_spring.dto.mapper;
 
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.rafael.crud_spring.dto.CursoDTO;
+import com.rafael.crud_spring.dto.LessonDTO;
 import com.rafael.crud_spring.enums.Categoria;
 import com.rafael.crud_spring.model.Curso;
 
@@ -16,7 +19,12 @@ public class CursoMapper {
             return null;            
         }
 
-        return new CursoDTO(curso.getId(), curso.getNome(), curso.getCategoria().getValue(), curso.getLessons());
+        List<LessonDTO> lessons = curso.getLessons()
+        .stream()
+        .map(lesson -> new LessonDTO(lesson.getId(), lesson.getNome(),
+         lesson.getYoutubeUrl())).toList();
+
+        return new CursoDTO(curso.getId(), curso.getNome(), curso.getCategoria().getValue(), lessons);
         
     }
 

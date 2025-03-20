@@ -5,7 +5,6 @@ import java.util.List;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.rafael.crud_spring.model.Lesson;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -15,6 +14,6 @@ public record CursoDTO(
     @JsonProperty("id") Long id,
     @NotBlank @NotNull @Length(min = 5, max = 100) String nome,
     @NotNull @Length(max = 10) @Pattern(regexp = "Front-End|Back-End") String categoria,
-    List<Lesson> lessons
+    List<LessonDTO> lessons
 ) {
 }
