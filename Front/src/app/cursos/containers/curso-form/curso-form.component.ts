@@ -1,5 +1,6 @@
+import { Lesson } from './../../model/lesson';
 import { Component, OnInit } from '@angular/core';
-import { NonNullableFormBuilder, Validators } from '@angular/forms';
+import { Form, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { CursosService } from '../../services/cursos.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -12,15 +13,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./curso-form.component.scss'],
 })
 export class CursoFormComponent implements OnInit {
-  form = this.formBuilder.group({
 
-    _id: [''],
-
-    nome: ['',[Validators.required, Validators.minLength(5), Validators.maxLength(100)],],
-
-    categoria: ['', [Validators.required]],
-    
-  });
+  form!: FormGroup;
 
   constructor(
     private formBuilder: NonNullableFormBuilder,
@@ -28,15 +22,37 @@ export class CursoFormComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private location: Location,
     private route: ActivatedRoute
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     const curso: Curso = this.route.snapshot.data['curso'];
-    this.form.setValue({
-      _id: curso._id,
-      nome: curso.nome,
-      categoria: curso.categoria,
+    this.form = this.formBuilder.group({
+        _id: [curso._id],
+        nome: [curso.nome, [Validators.required, 
+        Validators.minLength(5),
+        Validators.maxLength(100)]],    
+        categoria: [curso.categoria, [Validators.required]],
+        Lessons: this.formBuilder.array(this.obterAulas(curso)),
+        });
+  }
+
+  private obterAulas(curso: Curso) {
+    const lessons = [];
+    if (curso?.Lessons) {
+      curso.Lessons.forEach((lesson) => {
+        lessons.push(this.criarAula(lesson));
+      });
+    } else {
+      lessons.push(this.criarAula());
+    }
+    return lessons;
+  }
+
+  private criarAula(lesson: Lesson = { _id: '', nome: '', youtubeUrl: '' }) {
+    return this.formBuilder.group({
+      _id: [lesson._id],
+      nome: [lesson.nome],
+      youtubeUrl: [lesson.youtubeUrl],
     });
   }
 
@@ -49,7 +65,6 @@ export class CursoFormComponent implements OnInit {
     } else {
       this.onErro();
     }
-
   }
   onCancel() {
     this.location.back();
