@@ -47,8 +47,8 @@ public class CursoService {
     public CursoDTO update(@NotNull @Positive Long id, @Valid @NotNull CursoDTO curso) {
         return cursoRepository.findById(id)
     .map(record -> {
-        record.setNome(curso.getNome());
-        record.setCategoria(this.cursoMapper.convertCategoriaValue(curso.getCategoria()));
+        record.setNome(curso.nome());
+        record.setCategoria(this.cursoMapper.convertCategoriaValue(curso.categoria()));
         return cursoMapper.toDTO(cursoRepository.save(record));
     }).orElseThrow(() -> new RegistroNaoEncontrado(id));
 

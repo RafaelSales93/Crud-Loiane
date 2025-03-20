@@ -1,6 +1,5 @@
 package com.rafael.crud_spring.dto.mapper;
 
-import java.util.Locale.Category;
 
 import org.springframework.stereotype.Component;
 
@@ -17,7 +16,8 @@ public class CursoMapper {
             return null;            
         }
 
-        return new CursoDTO(curso.getId(), curso.getNome(), curso.getCategoria().getValue());
+        return new CursoDTO(curso.getId(), curso.getNome(), curso.getCategoria().getValue(), curso.getLessons());
+        
     }
 
     public Curso toEntity(CursoDTO cursoDTO) {
@@ -27,12 +27,12 @@ public class CursoMapper {
         }
 
         Curso curso = new Curso();
-        if (cursoDTO.getId() != null) {
-            curso.setId(cursoDTO.getId());            
+        if (cursoDTO.id() != null) {
+            curso.setId(cursoDTO.id());            
         }
-        curso.setNome(cursoDTO.getNome());
+        curso.setNome(cursoDTO.nome());
 
-        curso.setCategoria(convertCategoriaValue(cursoDTO.getCategoria()));
+        curso.setCategoria(convertCategoriaValue(cursoDTO.categoria()));
 
         return curso;
     }

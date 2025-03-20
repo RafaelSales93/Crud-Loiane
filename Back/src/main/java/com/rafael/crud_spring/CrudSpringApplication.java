@@ -26,10 +26,17 @@ public class CrudSpringApplication {
 			c.setCategoria(Categoria.FRONT_END);
 
 			Lesson l = new Lesson();
-			l.setNome("Spring Boot");
+			l.setNome("Introdução ao Angular");
 			l.setYoutubeUrl("watch?v=9SGDpanrc8U");
 			l.setCurso(c);
 			c.getLessons().add(l);
+
+
+			Lesson l2 = new Lesson();
+			l2.setNome("Introdução ao Java");
+			l2.setYoutubeUrl("watch?v=9SGDTeste");
+			l2.setCurso(c);
+			c.getLessons().add(l2);
 			
 			cursoRepository.save(c);
 		};
