@@ -1,6 +1,7 @@
 import { Curso } from '../model/curso';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { delay, first } from 'rxjs/operators';
 
 @Injectable({
@@ -40,8 +41,9 @@ export class CursosService {
       .pipe(first());
   }
 
- public remove(id: string) {
-    return this.httpClient.delete<void>(`${this.API}/${id}`);
-  }
+ public remove(id: string): Observable<any> {
+  return this.httpClient.delete(`${this.API}/${id}`);
+}
+
 
 }

@@ -25,7 +25,6 @@ export class CursosComponent implements OnInit {
     public route: ActivatedRoute,
     private _snackBar: MatSnackBar
   ) {
-    // this.cursos = [];
 
     this.refresh();
   }
@@ -54,7 +53,7 @@ export class CursosComponent implements OnInit {
     this.router.navigate(['edit', curso._id], { relativeTo: this.route });
   }
 
-  onRemove(curso: Curso) {
+  onRemove(curso: Curso) {debugger
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: 'Tem certeza que deseja remover esse curso?',
     });

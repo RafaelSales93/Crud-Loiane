@@ -29,7 +29,6 @@ export class CursoFormComponent implements OnInit {
     private location: Location,
     private route: ActivatedRoute
   ) {
-    // this.form
   }
 
   ngOnInit(): void {
@@ -51,10 +50,6 @@ export class CursoFormComponent implements OnInit {
       this.onErro();
     }
 
-    // this.service.save(this.form.value).subscribe(
-    //   (result) => this.onSuccess(),
-    //   (error) => this.onErro()
-    // );
   }
   onCancel() {
     this.location.back();
@@ -64,7 +59,7 @@ export class CursoFormComponent implements OnInit {
     this._snackBar.open('Erro ao salvar curso', '', { duration: 5000 });
   }
   private onSuccess() {
-    const isUpdate = !!this.form.get('_id')?.value; // Verifica se há um ID preenchido
+    const isUpdate = !!this.form.get('_id')?.value;
 
     const message = isUpdate
       ? 'Curso atualizado com sucesso!'

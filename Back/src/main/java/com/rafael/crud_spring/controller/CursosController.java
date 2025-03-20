@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rafael.crud_spring.dto.CursoDTO;
+import com.rafael.crud_spring.model.Curso;
 import com.rafael.crud_spring.service.CursoService;
 
 @Validated
