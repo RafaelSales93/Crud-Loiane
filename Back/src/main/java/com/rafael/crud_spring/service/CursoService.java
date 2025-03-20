@@ -3,7 +3,6 @@ package com.rafael.crud_spring.service;
 
 import com.rafael.crud_spring.dto.CursoDTO;
 import com.rafael.crud_spring.dto.mapper.CursoMapper;
-import com.rafael.crud_spring.enums.Categoria;
 import com.rafael.crud_spring.exception.RegistroNaoEncontrado;
 import com.rafael.crud_spring.repository.CursoRepository;
 
@@ -13,7 +12,6 @@ import jakarta.validation.constraints.Positive;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,7 +35,7 @@ public class CursoService {
                 .collect(Collectors.toList());
     }
 
-    public CursoDTO findById(@PathVariable @NotNull @Positive Long id) {
+    public CursoDTO findById(@NotNull @Positive Long id) {
         return cursoRepository.findById(id).map(cursoMapper::toDTO)
                 .orElseThrow(() -> new RegistroNaoEncontrado(id));
     }
@@ -50,13 +48,13 @@ public class CursoService {
         return cursoRepository.findById(id)
     .map(record -> {
         record.setNome(curso.getNome());
-        record.setCategoria(Categoria.FRONT_END);
+        record.setCategoria(this.cursoMapper.convertCategoriaValue(curso.getCategoria()));
         return cursoMapper.toDTO(cursoRepository.save(record));
     }).orElseThrow(() -> new RegistroNaoEncontrado(id));
 
     }
 
-    public void delete(@PathVariable @NotNull @Positive Long id) {
+    public void delete(@NotNull @Positive Long id) {
         cursoRepository.delete(cursoRepository.findById(id)
                 .orElseThrow(() -> new RegistroNaoEncontrado(id)));
     }

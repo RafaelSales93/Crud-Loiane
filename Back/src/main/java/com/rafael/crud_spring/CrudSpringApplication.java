@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 
 import com.rafael.crud_spring.enums.Categoria;
 import com.rafael.crud_spring.model.Curso;
+import com.rafael.crud_spring.model.Lesson;
 import com.rafael.crud_spring.repository.CursoRepository;
 
 @SpringBootApplication
@@ -23,6 +24,13 @@ public class CrudSpringApplication {
 			Curso c = new Curso();
 			c.setNome("Angular com Spring");
 			c.setCategoria(Categoria.FRONT_END);
+
+			Lesson l = new Lesson();
+			l.setNome("Spring Boot");
+			l.setYoutubeUrl("watch?v=9SGDpanrc8U");
+			l.setCurso(c);
+			c.getLessons().add(l);
+			
 			cursoRepository.save(c);
 		};
 
