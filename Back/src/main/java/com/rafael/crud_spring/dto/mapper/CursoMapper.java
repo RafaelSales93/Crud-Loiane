@@ -12,7 +12,6 @@ import com.rafael.crud_spring.enums.Categoria;
 import com.rafael.crud_spring.model.Curso;
 import com.rafael.crud_spring.model.Lesson;
 
-import lombok.experimental.var;
 
 @Component
 public class CursoMapper {

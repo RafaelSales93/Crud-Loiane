@@ -27,14 +27,14 @@ public class CrudSpringApplication {
 
 			Lesson l = new Lesson();
 			l.setNome("Introdução ao Angular");
-			l.setYoutubeUrl("watch?v=9SGDpanrc8U");
+			l.setYoutubeUrl("123456789123456789");
 			l.setCurso(c);
 			c.getLessons().add(l);
 
 
 			Lesson l2 = new Lesson();
 			l2.setNome("Introdução ao Java");
-			l2.setYoutubeUrl("watch?v=9SGDTeste");
+			l2.setYoutubeUrl("123456789123456780");
 			l2.setCurso(c);
 			c.getLessons().add(l2);
 			

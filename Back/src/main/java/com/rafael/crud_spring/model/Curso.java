@@ -22,12 +22,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
-import lombok.Data;
-
-@Data
 @Entity
 //@Table(name = "Cursos")
 @SQLDelete(sql = "UPDATE Curso SET status = 'Inativo' WHERE id = ?")
@@ -46,7 +45,7 @@ public class Curso {
     private String nome;
 
     @NotNull
-    @Column(nullable = false)
+    @Column(length = 10, nullable = false)
     @Convert(converter = CategoriaConverter.class)
     private Categoria categoria;
 
@@ -55,8 +54,53 @@ public class Curso {
     @Convert(converter = StatusConverter.class)
     private Status status = Status.ATIVO;
 
+    @NotNull
+    @NotEmpty
+    @Valid
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "curso")
     // @JoinColumn(name = "curso_id")
     private List<Lesson> lessons = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public List<Lesson> getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(List<Lesson> lessons) {
+        this.lessons = lessons;
+    }
+
+    
 
 }
