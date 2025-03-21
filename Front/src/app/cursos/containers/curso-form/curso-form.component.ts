@@ -37,8 +37,8 @@ export class CursoFormComponent implements OnInit {
 
   private obterAulas(curso: Curso) {
     const lessons = [];
-    if (curso?.Lessons) {
-      curso.Lessons.forEach((lesson) => {
+    if (curso?.lessons) {
+      curso.lessons.forEach((lesson) => {
         lessons.push(this.criarAula(lesson));
       });
     } else {

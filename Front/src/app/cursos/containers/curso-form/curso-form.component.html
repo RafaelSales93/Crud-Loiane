@@ -31,8 +31,11 @@
                 </button>
             </mat-toolbar>
 
-            <table style="width: 100%" formArrayName="lessons"
-                *ngFor="let lesson of getLessonsFormArray().controls; let i = index">
+            <table 
+            style="width: 100%" 
+            formArrayName="lessons"
+            *ngFor="let lesson of getLessonsFormArray().controls; let i = index">
+            
                 <tr [formGroupName]="i">
                     <td style="width: 65%">
                         <mat-form-field class="full-width">
