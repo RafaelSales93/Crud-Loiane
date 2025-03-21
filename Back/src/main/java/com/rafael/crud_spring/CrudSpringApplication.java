@@ -21,8 +21,12 @@ public class CrudSpringApplication {
 		return args -> {
 			cursoRepository.deleteAll();
 
+			for(int i = 0; i < 10; i++) {
+				
+			
+
 			Curso c = new Curso();
-			c.setNome("Angular com Spring");
+			c.setNome("Angular com Spring" + i);
 			c.setCategoria(Categoria.FRONT_END);
 
 			Lesson l = new Lesson();
@@ -39,6 +43,7 @@ public class CrudSpringApplication {
 			c.getLessons().add(l2);
 			
 			cursoRepository.save(c);
+		}
 		};
 
 	}

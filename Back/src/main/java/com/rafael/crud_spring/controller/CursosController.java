@@ -1,10 +1,12 @@
 package com.rafael.crud_spring.controller;
 
-import java.util.List;
+
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -15,10 +17,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rafael.crud_spring.dto.CursoDTO;
+import com.rafael.crud_spring.dto.CursoPageDTO;
 import com.rafael.crud_spring.service.CursoService;
 
 @Validated
@@ -33,9 +37,14 @@ public class CursosController {
     }
 
     @GetMapping
-    public List<CursoDTO> list() {
-        return cursoService.list();
+    public CursoPageDTO list( @RequestParam(defaultValue = "0") @PositiveOrZero int page, @RequestParam(defaultValue = "10") @Positive @Max(100) int size) {
+        return cursoService.list( page, size);
     }
+
+    // @GetMapping
+    // public List<CursoDTO> list() {
+    //     return cursoService.list();
+    // }
 
     @GetMapping("/{id}")
     public CursoDTO findById(@PathVariable @NotNull @Positive Long id) {
