@@ -31,13 +31,11 @@
             </mat-toolbar>
 
             <mat-error *ngIf="formUtils.isFormArrayRequired(form,'lessons')" class="form-array-error">
-              Adicionar pelo menos uma aula.
-                </mat-error>
+                Adicionar pelo menos uma aula.
+            </mat-error>
 
-            <table 
-            style="width: 100%" 
-            formArrayName="lessons"
-            *ngFor="let lesson of getLessonsFormArray().controls; let i = index">
+            <table style="width: 100%" formArrayName="lessons"
+                *ngFor="let lesson of getLessonsFormArray().controls; let i = index">
 
                 <tr [formGroupName]="i">
                     <td style="width: 65%">
@@ -45,7 +43,7 @@
                             <mat-label>Nome da Aula</mat-label>
                             <input matInput formControlName="nome" />
                             <mat-error *ngIf="getLessonsFormArray().controls[i].get('nome')?.invalid">
-                               {{formUtils.getFormArrayErrorMessage(form, 'lessons', 'nome', i)}} </mat-error>
+                                {{formUtils.getFormArrayErrorMessage(form, 'lessons', 'nome', i)}} </mat-error>
                         </mat-form-field>
                     </td>
                     <td style="width: 30%">
@@ -53,9 +51,8 @@
                             <mat-label>URL</mat-label>
                             <span matPrefix>http://youtu.be/</span>
                             <input matInput formControlName="youtubeUrl" />
-                            <mat-error 
-                            *ngIf="getLessonsFormArray().controls[i].get('youtubeUrl')?.invalid">
-                               {{formUtils.getFormArrayErrorMessage(form, 'lessons', 'youtubeUrl', i)}} </mat-error>
+                            <mat-error *ngIf="getLessonsFormArray().controls[i].get('youtubeUrl')?.invalid">
+                                {{formUtils.getFormArrayErrorMessage(form, 'lessons', 'youtubeUrl', i)}} </mat-error>
                         </mat-form-field>
                     </td>
                     <td>

@@ -2,6 +2,7 @@ package com.rafael.crud_spring.dto.mapper;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -9,6 +10,9 @@ import com.rafael.crud_spring.dto.CursoDTO;
 import com.rafael.crud_spring.dto.LessonDTO;
 import com.rafael.crud_spring.enums.Categoria;
 import com.rafael.crud_spring.model.Curso;
+import com.rafael.crud_spring.model.Lesson;
+
+import lombok.experimental.var;
 
 @Component
 public class CursoMapper {
@@ -39,9 +43,17 @@ public class CursoMapper {
             curso.setId(cursoDTO.id());            
         }
         curso.setNome(cursoDTO.nome());
-
         curso.setCategoria(convertCategoriaValue(cursoDTO.categoria()));
 
+        List<Lesson> lessons = cursoDTO.lessons().stream().map(lessonDTO -> {
+            var lesson = new Lesson();
+            lesson.setId(lessonDTO.id());
+            lesson.setNome(lessonDTO.nome());
+            lesson.setYoutubeUrl(lessonDTO.youtubeUrl());
+            lesson.setCurso(curso);
+            return lesson;
+        }).collect(Collectors.toList());
+        curso.setLessons(lessons);
         return curso;
     }
 

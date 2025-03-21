@@ -4,6 +4,7 @@ package com.rafael.crud_spring.service;
 import com.rafael.crud_spring.dto.CursoDTO;
 import com.rafael.crud_spring.dto.mapper.CursoMapper;
 import com.rafael.crud_spring.exception.RegistroNaoEncontrado;
+import com.rafael.crud_spring.model.Curso;
 import com.rafael.crud_spring.repository.CursoRepository;
 
 import jakarta.validation.Valid;
@@ -44,15 +45,22 @@ public class CursoService {
         return cursoMapper.toDTO(cursoRepository.save(cursoMapper.toEntity(curso)));
     }
 
-    public CursoDTO update(@NotNull @Positive Long id, @Valid @NotNull CursoDTO curso) {
+    public CursoDTO update(@NotNull @Positive Long id, @Valid @NotNull CursoDTO cursoDTO) {
         return cursoRepository.findById(id)
-    .map(record -> {
-        record.setNome(curso.nome());
-        record.setCategoria(this.cursoMapper.convertCategoriaValue(curso.categoria()));
-        return cursoMapper.toDTO(cursoRepository.save(record));
-    }).orElseThrow(() -> new RegistroNaoEncontrado(id));
-
+                .map(record -> {
+                    Curso cursoEntity = cursoMapper.toEntity(cursoDTO);
+                    record.setNome(cursoDTO.nome());
+                    record.setCategoria(cursoMapper.convertCategoriaValue(cursoDTO.categoria()));
+                
+                    record.getLessons().clear();
+                    cursoEntity.getLessons().forEach(record.getLessons()::add);
+                    
+                    return cursoMapper.toDTO(cursoRepository.save(record));
+                })
+                .orElseThrow(() -> new RegistroNaoEncontrado(id));
     }
+    
+    
 
     public void delete(@NotNull @Positive Long id) {
         cursoRepository.delete(cursoRepository.findById(id)
