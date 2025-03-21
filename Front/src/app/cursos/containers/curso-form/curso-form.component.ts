@@ -1,6 +1,6 @@
 import { Lesson } from './../../model/lesson';
 import { Component, OnInit } from '@angular/core';
-import { Form, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { Form, FormGroup, NonNullableFormBuilder, UntypedFormArray, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { CursosService } from '../../services/cursos.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,7 +13,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./curso-form.component.scss'],
 })
 export class CursoFormComponent implements OnInit {
-
   form!: FormGroup;
 
   constructor(
@@ -32,7 +31,7 @@ export class CursoFormComponent implements OnInit {
         Validators.minLength(5),
         Validators.maxLength(100)]],    
         categoria: [curso.categoria, [Validators.required]],
-        Lessons: this.formBuilder.array(this.obterAulas(curso)),
+        lessons: this.formBuilder.array(this.obterAulas(curso)),
         });
   }
 
@@ -54,6 +53,10 @@ export class CursoFormComponent implements OnInit {
       nome: [lesson.nome],
       youtubeUrl: [lesson.youtubeUrl],
     });
+  }
+
+  getLessonsFormArray(): UntypedFormArray {
+    return this.form.get('lessons') as UntypedFormArray;
   }
 
   onSubmit() {

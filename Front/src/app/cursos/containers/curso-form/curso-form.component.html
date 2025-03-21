@@ -4,8 +4,8 @@
     <mat-card-content>
         <form [formGroup]="form">
             <mat-form-field class="full-width">
-                <input matInput placeholder="Nome" formControlName="nome" #name/>
-                <mat-hint align="end">{{ name.value?.length || 0 }}/100</mat-hint>
+                <input matInput placeholder="Nome" formControlName="nome" #name />
+                <mat-hint align="end">{{ name.value.length || 0 }}/100</mat-hint>
 
                 <mat-error *ngIf="form.get('nome')?.invalid">{{
                     getErrorMessage("nome")
@@ -21,8 +21,36 @@
                 </mat-select>
                 <mat-error *ngIf="form.get('categoria')?.invalid">{{
                     getErrorMessage("categoria")
-                    }}</mat-error>
+                }}</mat-error>
+                
             </mat-form-field>
+
+            <mat-toolbar>
+                <span>Aulas</span>
+                <button mat-icon-button color="primary" >
+                    <mat-icon aria-label="Adicionar uma nova aula">add</mat-icon>
+                </button>
+            </mat-toolbar>
+            
+            <table style="width: 100%" formArrayName="lessons">
+                <tr *ngFor="let lesson of getLessonsFormArray().controls; let i = index" [formGroupName]="i">
+                    <td style="width: 65%">
+                        <mat-form-field class="full-width">
+                            <mat-label>Nome da Aula</mat-label>
+                            <input matInput formControlName="nome" />
+                        </mat-form-field>
+                    </td>
+            
+                    <td style="width: 30%;">
+                        <mat-form-field class="full-width">
+                            <mat-label>URL</mat-label>
+                            <span matPrefix>http://youtu.be/</span>
+                            <input matInput formControlName="youtubeUrl" />
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </table>
+
         </form>
     </mat-card-content>
 
