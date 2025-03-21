@@ -49,9 +49,9 @@ export class CursoFormComponent implements OnInit {
     return lessons;
   }
 
-  private criarAula(lesson: Lesson = { _id: '', nome: '', youtubeUrl: '' }) {
+  private criarAula(lesson: Lesson = { id: '', nome: '', youtubeUrl: '' }) {
     return this.formBuilder.group({
-      _id: [lesson._id],
+      id: [lesson.id],
       nome: [lesson.nome, [Validators.required, 
         Validators.minLength(5),
         Validators.maxLength(100)]],
@@ -78,6 +78,7 @@ export class CursoFormComponent implements OnInit {
   
 
   onSubmit() {
+    debugger
     if (this.form.valid) {
       this.service.save(this.form.value).subscribe(
         (result) => this.onSuccess(),
