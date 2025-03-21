@@ -57,7 +57,7 @@ export class FormUtilsService {
     return this.getErrorMessageFormField(field);
   }
 
-  isFormArrayInvalid(formGroup: UntypedFormGroup, formArrayNome: string) {
+  isFormArrayRequired(formGroup: UntypedFormGroup, formArrayNome: string) {
     const formArray = formGroup.get(formArrayNome) as UntypedFormArray;
     return !formArray.valid && formArray.hasError('required') && formArray.touched;
   }

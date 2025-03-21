@@ -6,6 +6,7 @@ import { CursosService } from '../../services/cursos.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Curso } from '../../model/curso';
 import { ActivatedRoute } from '@angular/router';
+import { FormUtilsService } from 'src/app/shared/form/form-utils.service';
 
 @Component({
   selector: 'app-curso-form',
@@ -20,8 +21,9 @@ export class CursoFormComponent implements OnInit {
     private service: CursosService,
     private _snackBar: MatSnackBar,
     private location: Location,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    public formUtils: FormUtilsService ) {
+    }
 
   ngOnInit(): void {
     const curso: Curso = this.route.snapshot.data['curso'];
@@ -82,11 +84,11 @@ export class CursoFormComponent implements OnInit {
         (error) => this.onErro()
       );
     } else {
-     alert('Formulario invalido');
+    this.formUtils.validateAllFormFields(this.form);
     }
   }
 
-  
+
   onCancel() {
     this.location.back();
   }
@@ -104,31 +106,4 @@ export class CursoFormComponent implements OnInit {
     this._snackBar.open(message, '', { duration: 5000 });
     this.onCancel();
   }
-
-  getErrorMessage(fieldNome: string) {
-    const field = this.form.get(fieldNome);
-
-    if (field?.hasError('required')) {
-      return 'Campo Obrigatorio';
-    }
-    if (field?.hasError('minlength')) {
-      const requiredLength: number = field.errors
-        ? field.errors['minlength']['requiredLength']
-        : 5;
-      return `Tamanho minimo precisa ser de ${requiredLength} caracteres.`;
-    }
-    if (field?.hasError('maxlength')) {
-      const requiredLength: number = field.errors
-        ? field.errors['maxlength']['requiredLength']
-        : 200;
-      return `Tamanho maximo excedido de ${requiredLength} caracteres.`;
-    }
-    return 'Campo Inválido';
-  }
-
-  isFormArrayInvalid() {
-    const lessons = this.form.get('lessons') as UntypedFormArray;
-    return !lessons.valid && lessons.hasError('required') && lessons.touched;
-  }
-
 }
