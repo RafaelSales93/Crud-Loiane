@@ -21,8 +21,7 @@
                 </mat-select>
                 <mat-error *ngIf="form.get('categoria')?.invalid">{{
                     getErrorMessage("categoria")
-                }}</mat-error>
-                
+                    }}</mat-error>
             </mat-form-field>
 
             <mat-toolbar>
@@ -31,29 +30,23 @@
                     <mat-icon aria-label="Adicionar uma nova aula">add</mat-icon>
                 </button>
             </mat-toolbar>
-            
-            <table 
-            style="width: 100%" 
-            formArrayName="lessons"
-            *ngFor="let lesson of getLessonsFormArray().controls; let i = index"
-            >
 
-                <tr  [formGroupName]="i">
+            <table style="width: 100%" formArrayName="lessons"
+                *ngFor="let lesson of getLessonsFormArray().controls; let i = index">
+                <tr [formGroupName]="i">
                     <td style="width: 65%">
                         <mat-form-field class="full-width">
                             <mat-label>Nome da Aula</mat-label>
                             <input matInput formControlName="nome" />
                         </mat-form-field>
                     </td>
-            
-                    <td style="width: 30%;">
+                    <td style="width: 30%">
                         <mat-form-field class="full-width">
                             <mat-label>URL</mat-label>
                             <span matPrefix>http://youtu.be/</span>
                             <input matInput formControlName="youtubeUrl" />
                         </mat-form-field>
                     </td>
-
                     <td>
                         <button mat-icon-button color="warn" (click)="removeLesson(i)">
                             <mat-icon aria-label="Remover a aula">delete</mat-icon>
@@ -61,12 +54,15 @@
                     </td>
                 </tr>
             </table>
-
         </form>
     </mat-card-content>
 
     <mat-card-actions class="mat-actions">
-        <button mat-raised-button color="primary" (click)="onSubmit()">Salvar</button>
-        <button mat-raised-button class="btn-space" (click)="onCancel()">Cancelar</button>
+        <button mat-raised-button color="primary" (click)="onSubmit()">
+            Salvar
+        </button>
+        <button mat-raised-button class="btn-space" (click)="onCancel()">
+            Cancelar
+        </button>
     </mat-card-actions>
 </mat-card>
