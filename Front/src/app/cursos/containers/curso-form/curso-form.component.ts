@@ -30,8 +30,8 @@ export class CursoFormComponent implements OnInit {
         nome: [curso.nome, [Validators.required, 
         Validators.minLength(5),
         Validators.maxLength(100)]],    
-        categoria: [curso.categoria, [Validators.required]],
-        lessons: this.formBuilder.array(this.obterAulas(curso)),
+        categoria: [curso.categoria, ],
+        lessons: this.formBuilder.array(this.obterAulas(curso),Validators.required)
         });
   }
 
@@ -50,8 +50,12 @@ export class CursoFormComponent implements OnInit {
   private criarAula(lesson: Lesson = { _id: '', nome: '', youtubeUrl: '' }) {
     return this.formBuilder.group({
       _id: [lesson._id],
-      nome: [lesson.nome],
-      youtubeUrl: [lesson.youtubeUrl],
+      nome: [lesson.nome, [Validators.required, 
+        Validators.minLength(5),
+        Validators.maxLength(100)]],
+      youtubeUrl: [lesson.youtubeUrl, [Validators.required, 
+        Validators.minLength(10),
+        Validators.maxLength(100)]],
     });
   }
 
@@ -78,7 +82,7 @@ export class CursoFormComponent implements OnInit {
         (error) => this.onErro()
       );
     } else {
-      this.onErro();
+     alert('Formulario invalido');
     }
   }
   onCancel() {
@@ -119,4 +123,10 @@ export class CursoFormComponent implements OnInit {
     }
     return 'Campo Inválido';
   }
+
+  isFormArrayInvalid() {
+    const lessons = this.form.get('lessons') as UntypedFormArray;
+    return !lessons.valid && lessons.hasError('required') && lessons.touched;
+  }
+
 }
