@@ -85,6 +85,8 @@ export class CursoFormComponent implements OnInit {
      alert('Formulario invalido');
     }
   }
+
+  
   onCancel() {
     this.location.back();
   }
