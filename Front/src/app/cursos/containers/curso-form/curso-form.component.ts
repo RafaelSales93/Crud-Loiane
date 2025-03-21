@@ -59,6 +59,18 @@ export class CursoFormComponent implements OnInit {
     return this.form.get('lessons') as UntypedFormArray;
   }
 
+  addNweLesson(){
+    const lesson = this.form.get('lessons') as UntypedFormArray;
+    lesson.push(this.criarAula());
+  }
+
+  removeLesson(index: number){
+    const lesson = this.form.get('lessons') as UntypedFormArray;
+    lesson.removeAt(index);
+  }
+
+  
+
   onSubmit() {
     if (this.form.valid) {
       this.service.save(this.form.value).subscribe(
