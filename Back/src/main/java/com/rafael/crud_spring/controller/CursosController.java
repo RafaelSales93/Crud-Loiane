@@ -37,8 +37,8 @@ public class CursosController {
     }
 
     @GetMapping
-    public CursoPageDTO list( @RequestParam(defaultValue = "0") @PositiveOrZero int page, @RequestParam(defaultValue = "10") @Positive @Max(100) int size) {
-        return cursoService.list( page, size);
+    public CursoPageDTO list( @RequestParam(defaultValue = "0") @PositiveOrZero int page, @RequestParam(defaultValue = "10") @Positive @Max(100) int pageSize) {
+        return cursoService.list( page, pageSize);
     }
 
     // @GetMapping
