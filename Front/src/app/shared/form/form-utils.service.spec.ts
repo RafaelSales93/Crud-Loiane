@@ -1,5 +1,5 @@
-import { TestBed } from '@angular/core/testing';
 
+import { TestBed } from '@angular/core/testing';
 import { FormUtilsService } from './form-utils.service';
 
 describe('FormUtilsService', () => {

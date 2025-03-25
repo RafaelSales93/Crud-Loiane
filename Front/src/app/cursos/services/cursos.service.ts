@@ -1,7 +1,6 @@
 import { Curso } from '../model/curso';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { delay, first } from 'rxjs/operators';
 import { CursoPage } from '../model/curso-page';
 
