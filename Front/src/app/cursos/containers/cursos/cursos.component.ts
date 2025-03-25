@@ -10,12 +10,18 @@ import { CursosService } from '../../services/cursos.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
 import { CursoPage } from '../../model/curso-page';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-cursos',
   templateUrl: './cursos.component.html',
   styleUrls: ['./cursos.component.scss'],
+  standalone: true,
+  imports: [MatCardModule, MatToolbarModule, MatPaginatorModule, MatProgressSpinnerModule, AsyncPipe]
 })
 export class CursosComponent implements OnInit {
 

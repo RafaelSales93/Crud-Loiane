@@ -9,9 +9,10 @@ import { ActivatedRoute } from '@angular/router';
 import { FormUtilsService } from 'src/app/shared/form/form-utils.service';
 
 @Component({
-  selector: 'app-curso-form',
-  templateUrl: './curso-form.component.html',
-  styleUrls: ['./curso-form.component.scss'],
+    selector: 'app-curso-form',
+    templateUrl: './curso-form.component.html',
+    styleUrls: ['./curso-form.component.scss'],
+    standalone: true,
 })
 export class CursoFormComponent implements OnInit {
   form!: FormGroup;

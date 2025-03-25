@@ -4,9 +4,10 @@ import { Curso } from '../../model/curso';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-cursos-list',
-  templateUrl: './cursos-list.component.html',
-  styleUrls: ['./cursos-list.component.scss'],
+    selector: 'app-cursos-list',
+    templateUrl: './cursos-list.component.html',
+    styleUrls: ['./cursos-list.component.scss'],
+    standalone: true,
 })
 export class CursosListComponent implements OnInit {
   @Input() cursos: Curso[] = [];
