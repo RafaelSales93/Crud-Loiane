@@ -16,7 +16,6 @@ export class CursosService {
   list(page = 0, pageSize = 10) {
     return this.httpClient.get<CursoPage>(this.API, {params: { page, pageSize } })
       .pipe(
-        first(),
       // delay(5000)
       );
   }
@@ -42,8 +41,8 @@ export class CursosService {
       .pipe(first());
   }
 
- public remove(id: string): Observable<any> {
-  return this.httpClient.delete(`${this.API}/${id}`);
+ public remove(id: string) {
+  return this.httpClient.delete(`${this.API}/${id}`).pipe(first());
 }
 
 
