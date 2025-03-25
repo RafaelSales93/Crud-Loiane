@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
-
 import { CursosService } from '../../services/cursos.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
@@ -15,18 +14,26 @@ import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AsyncPipe } from '@angular/common';
+import { CursosListComponent } from '../../components/cursos-list/cursos-list.component';
+
 
 @Component({
   selector: 'app-cursos',
   templateUrl: './cursos.component.html',
   styleUrls: ['./cursos.component.scss'],
   standalone: true,
-  imports: [MatCardModule, MatToolbarModule, MatPaginatorModule, MatProgressSpinnerModule, AsyncPipe]
+  imports: [
+    MatCardModule,
+    MatToolbarModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    AsyncPipe,
+    CursosListComponent,
+  ],
 })
 export class CursosComponent implements OnInit {
 
-  cursos$: Observable<CursoPage> | null = null;
-
+  cursos$: Observable<CursoPage> = of({ cursos: [], totalElements: 0, totalPages: 0 });
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   pageIndex = 0;
@@ -39,22 +46,24 @@ export class CursosComponent implements OnInit {
     public route: ActivatedRoute,
     private _snackBar: MatSnackBar
   ) {
-
     this.refresh();
   }
 
-  refresh(pageEvent: PageEvent = {length: 0, pageIndex: 0, pageSize: 10}) {
-    this.cursos$ = this.cursosService.list( pageEvent.pageIndex, pageEvent.pageSize)
-    .pipe(
-      tap(() => {
-        this.pageIndex = pageEvent.pageIndex;
-        this.pageSize = pageEvent.pageSize;
-      }),
-      catchError((error) => {
-        this.onError('Erro ao Carregar Cursos');
-        return of({cursos: [], totalElements: 0, totalPages: 0});
-      })
-    );
+  refresh(pageEvent: PageEvent = { length: 0, pageIndex: 0, pageSize: 10 }) {
+    this.cursos$ = this.cursosService.list(pageEvent.pageIndex, pageEvent.pageSize)
+      .pipe(
+        tap(response => {
+          this.pageIndex = pageEvent.pageIndex;
+          this.pageSize = pageEvent.pageSize;
+          if (this.paginator) {
+            this.paginator.length = response.totalElements;
+          }
+        }),
+        catchError((error) => {
+          this.onError('Erro ao Carregar Cursos');
+          return of({ cursos: [], totalElements: 0, totalPages: 0 });
+        })
+      );
   }
 
   onError(errorMsg: string) {
@@ -62,6 +71,7 @@ export class CursosComponent implements OnInit {
       data: errorMsg,
     });
   }
+
   ngOnInit(): void {}
 
   onAdd() {

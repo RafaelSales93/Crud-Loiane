@@ -1,13 +1,21 @@
-import { CursosComponent } from '../../containers/cursos/cursos.component';
+
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Curso } from '../../model/curso';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+
 
 @Component({
     selector: 'app-cursos-list',
     templateUrl: './cursos-list.component.html',
     styleUrls: ['./cursos-list.component.scss'],
     standalone: true,
+    imports: [
+        MatTableModule,
+        MatIconModule,
+        MatButtonModule,
+    ],
 })
 export class CursosListComponent implements OnInit {
   @Input() cursos: Curso[] = [];

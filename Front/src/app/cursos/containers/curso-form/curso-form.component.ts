@@ -1,18 +1,38 @@
 import { Lesson } from './../../model/lesson';
 import { Component, OnInit } from '@angular/core';
-import { Form, FormGroup, NonNullableFormBuilder, UntypedFormArray, Validators } from '@angular/forms';
+import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { CursosService } from '../../services/cursos.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Curso } from '../../model/curso';
 import { ActivatedRoute } from '@angular/router';
+import { FormArray } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormUtilsService } from 'src/app/shared/form/form-utils.service';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatToolbar } from '@angular/material/toolbar';
 
 @Component({
     selector: 'app-curso-form',
     templateUrl: './curso-form.component.html',
     styleUrls: ['./curso-form.component.scss'],
     standalone: true,
+    imports: [ReactiveFormsModule,
+      MatCardModule,
+      MatFormFieldModule, 
+      MatInputModule, 
+      MatSelectModule,
+      MatButtonModule,
+      MatIconModule,
+      MatSnackBarModule,
+      MatToolbar]
+    
 })
 export class CursoFormComponent implements OnInit {
   form!: FormGroup;
@@ -26,17 +46,18 @@ export class CursoFormComponent implements OnInit {
     public formUtils: FormUtilsService ) {
     }
 
-  ngOnInit(): void {
-    const curso: Curso = this.route.snapshot.data['curso'];
-    this.form = this.formBuilder.group({
-        _id: [curso._id],
-        nome: [curso.nome, [Validators.required, 
-        Validators.minLength(5),
-        Validators.maxLength(100)]],    
-        category: [curso.category, ],
-        lessons: this.formBuilder.array(this.obterAulas(curso),Validators.required)
-        });
-  }
+    ngOnInit(): void {
+      const curso: Curso = this.route.snapshot.data['curso'];
+    
+      this.form = this.formBuilder.group({
+        _id: [curso?._id],
+        nome: [curso?.nome || '', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+        category: [curso?.category || '', Validators.required],
+        lessons: this.formBuilder.array(this.obterAulas(curso))
+      });
+      
+    }
+    
 
   private obterAulas(curso: Curso) {
     const lessons = [];
@@ -62,19 +83,21 @@ export class CursoFormComponent implements OnInit {
     });
   }
 
-  getLessonsFormArray(): UntypedFormArray {
-    return this.form.get('lessons') as UntypedFormArray;
+  getLessonsFormArray(): FormArray {
+    return this.form.get('lessons') as FormArray;
   }
+  
 
-  addNweLesson(){
-    const lesson = this.form.get('lessons') as UntypedFormArray;
+  addNewLesson() {
+    const lesson = this.form.get('lessons') as FormArray;
     lesson.push(this.criarAula());
   }
-
-  removeLesson(index: number){
-    const lesson = this.form.get('lessons') as UntypedFormArray;
+  
+  removeLesson(index: number) {
+    const lesson = this.form.get('lessons') as FormArray;
     lesson.removeAt(index);
   }
+  
 
   
 
