@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.rafael.crud_spring.dto.CursoDTO;
 import com.rafael.crud_spring.dto.LessonDTO;
-import com.rafael.crud_spring.enums.Categoria;
+import com.rafael.crud_spring.enums.category;
 import com.rafael.crud_spring.model.Curso;
 import com.rafael.crud_spring.model.Lesson;
 
@@ -27,7 +27,7 @@ public class CursoMapper {
         .map(lesson -> new LessonDTO(lesson.getId(), lesson.getNome(),
          lesson.getYoutubeUrl())).toList();
 
-        return new CursoDTO(curso.getId(), curso.getNome(), curso.getCategoria().getValue(), lessons);
+        return new CursoDTO(curso.getId(), curso.getNome(), curso.getcategory().getValue(), lessons);
         
     }
 
@@ -42,7 +42,7 @@ public class CursoMapper {
             curso.setId(cursoDTO.id());            
         }
         curso.setNome(cursoDTO.nome());
-        curso.setCategoria(convertCategoriaValue(cursoDTO.categoria()));
+        curso.setcategory(convertcategoryValue(cursoDTO.category()));
 
         List<Lesson> lessons = cursoDTO.lessons().stream().map(lessonDTO -> {
             var lesson = new Lesson();
@@ -56,14 +56,14 @@ public class CursoMapper {
         return curso;
     }
 
-    public Categoria convertCategoriaValue(String value) {
+    public category convertcategoryValue(String value) {
         if (value == null) {
             return null;
         }
         return switch (value) {
-            case "Front-End" -> Categoria.FRONT_END;
-            case "Back-End" -> Categoria.BACK_END;
-            default -> throw new IllegalArgumentException("Categoria inválida" + value);
+            case "Front-End" -> category.FRONT_END;
+            case "Back-End" -> category.BACK_END;
+            default -> throw new IllegalArgumentException("category inválida" + value);
         };
     }
 }

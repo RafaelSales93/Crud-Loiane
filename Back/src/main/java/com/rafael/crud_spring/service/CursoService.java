@@ -63,7 +63,7 @@ public class CursoService {
                 .map(record -> {
                     Curso cursoEntity = cursoMapper.toEntity(cursoDTO);
                     record.setNome(cursoDTO.nome());
-                    record.setCategoria(cursoMapper.convertCategoriaValue(cursoDTO.categoria()));
+                    record.setcategory(cursoMapper.convertcategoryValue(cursoDTO.category()));
                 
                     record.getLessons().clear();
                     cursoEntity.getLessons().forEach(record.getLessons()::add);

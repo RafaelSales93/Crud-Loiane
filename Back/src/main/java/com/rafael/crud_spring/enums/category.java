@@ -1,11 +1,11 @@
 package com.rafael.crud_spring.enums;
 
-public enum Categoria {  
+public enum category {  
     BACK_END("Back-End"), FRONT_END("Front-End");
 
     private String value;
 
-    private Categoria(String value) {
+    private category(String value) {
         this.value = value;
     }
 

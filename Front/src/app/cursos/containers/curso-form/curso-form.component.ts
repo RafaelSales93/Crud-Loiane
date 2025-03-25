@@ -33,7 +33,7 @@ export class CursoFormComponent implements OnInit {
         nome: [curso.nome, [Validators.required, 
         Validators.minLength(5),
         Validators.maxLength(100)]],    
-        categoria: [curso.categoria, ],
+        category: [curso.category, ],
         lessons: this.formBuilder.array(this.obterAulas(curso),Validators.required)
         });
   }

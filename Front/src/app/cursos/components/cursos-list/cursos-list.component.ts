@@ -15,7 +15,7 @@ export class CursosListComponent implements OnInit {
   @Output() edit = new EventEmitter(false);
   @Output() remove = new EventEmitter(false);
 
-  readonly displayedColumns = ['nome', 'categoria', 'actions'];
+  readonly displayedColumns = ['nome', 'category', 'actions'];
 
   constructor() {}
 
