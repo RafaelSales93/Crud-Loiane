@@ -8,3 +8,26 @@ services:
       - 'MYSQL_USER=myuser'
     ports:
       - '3306:3306'
+    # volumes: 
+    #   -'./mysql:/var/lib/mysql'
+
+# version: '3.8'
+
+# services:
+#   mysql:
+#     image: mysql:8
+#     environment:
+#       MYSQL_ROOT_PASSWORD: root_password
+#     volumes:
+#       - mysql-data:/var/lib/mysql
+#     ports:
+#       - "3306:3306"
+#     networks:
+#       - my-network
+
+# networks:
+#   my-network:
+#     driver: bridge
+
+# volumes:
+#   mysql-data:
