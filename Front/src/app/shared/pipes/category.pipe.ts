@@ -1,10 +1,10 @@
 import { Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({
-  name: 'category',
+  name: 'categoria',
   standalone: true
 })
-export class CategoryPipe implements PipeTransform {
+export class CategoriaPipe implements PipeTransform {
 
   transform(value: string): string {
     switch(value){

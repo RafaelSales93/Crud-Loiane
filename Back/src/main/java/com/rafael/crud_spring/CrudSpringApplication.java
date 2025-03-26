@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 
-import com.rafael.crud_spring.enums.category;
+import com.rafael.crud_spring.enums.Categoria;
 import com.rafael.crud_spring.model.Curso;
 import com.rafael.crud_spring.model.Lesson;
 import com.rafael.crud_spring.repository.CursoRepository;
@@ -29,7 +29,7 @@ public class CrudSpringApplication {
 
 			Curso c = new Curso();
 			c.setNome("Angular com Spring" + i);
-			c.setcategory(category.FRONT_END);
+			c.setCategoria(Categoria.BACK_END);
 
 			Lesson l = new Lesson();
 			l.setNome("Introdução ao Angular");

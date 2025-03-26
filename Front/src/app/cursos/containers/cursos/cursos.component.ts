@@ -1,21 +1,25 @@
-import { Curso } from '../../model/curso';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { CursosService } from './../../services/cursos.service';
+import { Curso } from './../../model/curso';
+import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
-import { CursosService } from '../../services/cursos.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
-import { CursoPage } from '../../model/curso-page';
-import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { MatCardModule } from '@angular/material/card';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { AsyncPipe } from '@angular/common';
-import { CursosListComponent } from '../../components/cursos-list/cursos-list.component';
 
+import { ErrorDialogComponent } from '../../../shared/components/error-dialog/error-dialog.component';
+import {
+  MatPaginator,
+  PageEvent,
+  MatPaginatorModule,
+} from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AsyncPipe, CommonModule } from '@angular/common';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
+import { CursosListComponent } from '../../components/cursos-list/cursos-list.component';
+import { CursoPage } from '../../model/curso-page';
+import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-cursos',
@@ -29,30 +33,31 @@ import { CursosListComponent } from '../../components/cursos-list/cursos-list.co
     MatProgressSpinnerModule,
     AsyncPipe,
     CursosListComponent,
+    CommonModule,
   ],
 })
-export class CursosComponent implements OnInit {
+export class CursosComponent {
+  public cursos$: Observable<CursoPage> | null = null;
+  @ViewChild(MatPaginator) public paginator!: MatPaginator;
 
-  cursos$: Observable<CursoPage> = of({ cursos: [], totalElements: 0, totalPages: 0 });
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  pageIndex = 0;
-  pageSize = 10;
+  public pageIndex = 0;
+  public pageSize = 10;
 
   constructor(
-    private cursosService: CursosService,
+    private readonly cursosService: CursosService,
     public dialog: MatDialog,
     public router: Router,
     public route: ActivatedRoute,
-    private _snackBar: MatSnackBar
+    private readonly snackBar: MatSnackBar
   ) {
     this.refresh();
   }
 
   refresh(pageEvent: PageEvent = { length: 0, pageIndex: 0, pageSize: 10 }) {
-    this.cursos$ = this.cursosService.list(pageEvent.pageIndex, pageEvent.pageSize)
+    this.cursos$ = this.cursosService
+      .list(pageEvent.pageIndex, pageEvent.pageSize)
       .pipe(
-        tap(response => {
+        tap((response) => {
           this.pageIndex = pageEvent.pageIndex;
           this.pageSize = pageEvent.pageSize;
           if (this.paginator) {
@@ -72,8 +77,6 @@ export class CursosComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
-
   onAdd() {
     this.router.navigate(['new'], { relativeTo: this.route });
   }
@@ -87,12 +90,12 @@ export class CursosComponent implements OnInit {
       data: 'Tem certeza que deseja remover esse curso?',
     });
 
-    dialogRef.afterClosed().subscribe((result: Boolean) => {
+    dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
         this.cursosService.remove(curso._id).subscribe(
           () => {
             this.refresh();
-            this._snackBar.open('Curso removido com sucesso!', 'X', {
+            this.snackBar.open('Curso removido com sucesso!', 'X', {
               duration: 5000,
               verticalPosition: 'top',
               horizontalPosition: 'center',

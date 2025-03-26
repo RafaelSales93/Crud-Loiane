@@ -1,8 +1,8 @@
-import { CategoryPipe } from './category.pipe';
+import { CategoriaPipe } from './categoria.pipe';
 
-describe('CategoryPipe', () => {
+describe('CategoriaPipe', () => {
   it('create an instance', () => {
-    const pipe = new CategoryPipe();
+    const pipe = new CategoriaPipe();
     expect(pipe).toBeTruthy();
   });
 });

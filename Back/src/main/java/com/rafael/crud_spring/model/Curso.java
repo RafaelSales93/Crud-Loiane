@@ -9,9 +9,9 @@ import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.rafael.crud_spring.enums.category;
+import com.rafael.crud_spring.enums.Categoria;
 import com.rafael.crud_spring.enums.Status;
-import com.rafael.crud_spring.enums.converters.categoryConverter;
+import com.rafael.crud_spring.enums.converters.*;
 import com.rafael.crud_spring.enums.converters.StatusConverter;
 
 import jakarta.persistence.CascadeType;
@@ -46,8 +46,8 @@ public class Curso {
 
     @NotNull
     @Column(length = 10, nullable = false)
-    @Convert(converter = categoryConverter.class)
-    private category category;
+    @Convert(converter = CategoriaConverter.class)
+    private Categoria categoria;
 
     @NotNull
     @Column(length = 10, nullable = false)
@@ -77,12 +77,12 @@ public class Curso {
         this.nome = nome;
     }
 
-    public category getcategory() {
-        return category;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setcategory(category category) {
-        this.category = category;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     public Status getStatus() {
