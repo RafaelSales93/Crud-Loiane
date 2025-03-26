@@ -6,19 +6,19 @@
       <mat-form-field class="full-width">
         <input matInput placeholder="Nome" formControlName="nome" #name />
         <mat-hint align="end">{{ name.value.length || 0 }} / 100</mat-hint>
-        @if (form.get('nome')?.invalid) {
-        <mat-error>{{ formUtils.getErrorMessage(form, 'Nome') }}</mat-error>
+        @if(form.get('nome')?.invalid) {
+          <mat-error>{{ formUtils.getErrorMessage(form, 'nome') }}</mat-error>
         }
       </mat-form-field>
 
       <mat-form-field class="full-width">
         <mat-label>Categoria</mat-label>
         <mat-select formControlName="categoria">
-          <mat-option value="Front-end">Front-End</mat-option>
-          <mat-option value="Back-end">Back-End</mat-option>
+          <mat-option value="Front-End">Front-End</mat-option>
+          <mat-option value="Back-End">Back-End</mat-option>
         </mat-select>
-        @if (form.get('categoria')?.invalid) {
-        <mat-error>{{ formUtils.getErrorMessage(form, 'categoria') }}</mat-error>
+        @if(form.get('categoria')?.invalid) {
+          <mat-error>{{ formUtils.getErrorMessage(form, 'categoria') }}</mat-error>
         }
       </mat-form-field>
 
@@ -29,41 +29,40 @@
         </button>
       </mat-toolbar>
 
-      @if (formUtils.isFormArrayRequired(form, 'lessons')) {
-      <mat-error class="form-array-error">Adicione pelo menos uma aula.</mat-error>
+      @if(formUtils.isFormArrayRequired(form, 'lessons')) {
+        <mat-error class="form-array-error">Adicione pelo menos uma aula.</mat-error>
       }
 
-      @for let i = index; let lesson of getLessonsFormArray() {
-      <table style="width: 100%" formArrayName="lessons">
-        <tr [formGroupName]="i">
-          <td style="width: 65%">
-            <mat-form-field class="full-width">
-              <mat-label>Nome da Aula</mat-label>
-              <input matInput formControlName="nome" />
-              @if (getLessonsFormArray()[i].get('nome')?.invalid) {
-              <mat-error>{{ formUtils.getFormArrayFieldErrorMessage(form, 'lessons', 'nome', i) }}</mat-error>
-              }
-            </mat-form-field>
-          </td>
-          <td style="width: 30%">
-            <mat-form-field class="full-width">
-              <mat-label>URL</mat-label>
-              <span matPrefix>https://youtu.be/</span>
-              <input matInput formControlName="youtubeUrl" />
-              @if (getLessonsFormArray()[i].get('youtubeUrl')?.invalid) {
-              <mat-error>{{ formUtils.getFormArrayFieldErrorMessage(form, 'lessons', 'youtubeUrl', i) }}</mat-error>
-              }
-            </mat-form-field>
-          </td>
-          <td>
-            <button mat-icon-button color="warn" (click)="removeLesson(i)">
-              <mat-icon aria-label="Remover a aula">delete</mat-icon>
-            </button>
-          </td>
-        </tr>
-      </table>
+      @for(lesson of getLessonsFormArray(); track lesson; let i = $index) {
+        <table style="width: 100%" formArrayName="lessons">
+          <tr [formGroupName]="i">
+            <td style="width: 65%">
+              <mat-form-field class="full-width">
+                <mat-label>Nome da Aula</mat-label>
+                <input matInput formControlName="nome" />
+                @if(getLessonsFormArray()[i].get('nome')?.invalid) {
+                  <mat-error>{{ formUtils.getFormArrayErrorMessage(form, 'lessons', 'nome', i) }}</mat-error>
+                }
+              </mat-form-field>
+            </td>
+            <td style="width: 30%">
+              <mat-form-field class="full-width">
+                <mat-label>URL</mat-label>
+                <span matPrefix>https://youtu.be/</span>
+                <input matInput formControlName="youtubeUrl" />
+                @if(getLessonsFormArray()[i].get('youtubeUrl')?.invalid) {
+                  <mat-error>{{ formUtils.getFormArrayErrorMessage(form, 'lessons', 'youtubeUrl', i) }}</mat-error>
+                }
+              </mat-form-field>
+            </td>
+            <td>
+              <button mat-icon-button color="warn" (click)="removeLesson(i)">
+                <mat-icon aria-label="Remover a aula">delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </table>
       }
-
     </form>
   </mat-card-content>
 

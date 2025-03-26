@@ -37,7 +37,8 @@ public class CursosController {
     }
 
     @GetMapping
-    public CursoPageDTO list( @RequestParam(defaultValue = "0") @PositiveOrZero int page, @RequestParam(defaultValue = "10") @Positive @Max(100) int pageSize) {
+    public CursoPageDTO list( @RequestParam(defaultValue = "0") @PositiveOrZero int page, 
+    @RequestParam(defaultValue = "10") @Positive @Max(100) int pageSize) {
         return cursoService.list( page, pageSize);
     }
 
@@ -53,8 +54,7 @@ public class CursosController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public CursoDTO create(@RequestBody @Valid CursoDTO curso) {
-
+    public CursoDTO create(@RequestBody @Valid @NotNull CursoDTO curso) {
         return cursoService.create(curso);
     }
 
